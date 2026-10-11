@@ -10,10 +10,12 @@
 // entry/loading illustration names) it is layered under the CSS art; otherwise the screen is
 // pure CSS/SVG (radar, ridgelines, glow), so it never issues a request that can 404.
 
+import { ResumeMatchButton } from '../ui/resumeMatch.js';
 import { useMemo, useState } from '../../vendor/hooks.module.js';
 import { NAME_MAX_LEN, APP_VERSION, DEV_BUILD } from '../../../shared/constants.js';
 import { html, Button, Icon, MicroLabel, TextField, PingPill } from '../ui/components.js';
 import { GuideButton } from '../ui/guide.js';
+import { openStats } from './stats.js';
 import { toast } from '../ui/toasts.js';
 import { net, identity } from '../net.js';
 import { store, useStore, shallowEqual } from '../store.js';
@@ -245,7 +247,10 @@ export function TitleScreen() {
     </div>
     <div class="title-corner title-corner--tr">
       <div>
-        <${LangToggle} class="title-lang" />
+        <div class="title-corner__tools">
+          <${Button} variant="ghost" size="sm" icon="chart" class="title-stats" onClick=${openStats} title=${t('统计数据')}>${t('统计')}<//>
+          <${LangToggle} class="title-lang" />
+        </div>
         <${MicroLabel} tone="hi">TARGET POINT<//><br /><${MicroLabel}>STRONGHOLD PROTOCOL<//>
       </div>
     </div>
@@ -283,14 +288,11 @@ export function TitleScreen() {
     <${SettingsModal} open=${settingsOpen} onClose=${() => setSettingsOpen(false)} />
 
     <footer class="title-foot">
-      <div class="title-foot__left">
-        <span>${t('非官方同人复刻 · 游戏素材版权归 上海鹰角网络 / Yostar 所有')}</span>
-        ${DEV_BUILD ? html`<span class="title-dev" role="note">${t('开发版 · 不稳定，请勿用于公开服务器')}</span>` : null}
-      </div>
-      <div class="title-foot__right">
-        <div class="title-install"><${PwaInstallButton} size="sm" /></div>
-        <${MicroLabel}>v${APP_VERSION} · WEB SIMULATION<//>
-      </div>
+      <${ResumeMatchButton} />
+      <${PwaInstallButton} />
+      <span>${t('非官方同人复刻 · 游戏素材版权归 上海鹰角网络 / Yostar 所有')}</span>
+      <${MicroLabel}>v${APP_VERSION} · WEB SIMULATION<//>
+      ${DEV_BUILD ? html`<span class="title-dev" role="note">${t('开发版 · 不稳定，请勿用于公开服务器')}</span>` : null}
     </footer>
   </div>`;
 }
