@@ -25,7 +25,6 @@ import { loadPref, savePref } from '../store.js';
 import { data } from '../data.js';
 import { updateRotateHintPwaI18n } from './device.js';
 import { html } from './components.js';
-import { updateRotateHintPwaI18n } from './device.js';
 
 /** The switch's own label, in both languages (whoever opens it may not read the current one). */
 const SWITCH_LABEL = 'Language / 语言'; // i18n-ignore

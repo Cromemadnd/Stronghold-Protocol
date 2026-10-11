@@ -1,0 +1,14 @@
+services:
+  stronghold-protocol:
+    build:
+      context: .
+    container_name: stronghold-protocol
+    ports:
+      - "20001:3000"
+    restart: unless-stopped
+    volumes:
+      - ./public:/app/public
+    environment:
+      SP_VERIFY: "off"
+      SP_COMBAT: "server"
+      SP_NO_BROWSER: "1"
