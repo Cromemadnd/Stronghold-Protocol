@@ -271,6 +271,11 @@ export function installDeviceSupport(win = globalThis) {
   on(doc, 'click', (e) => {
     if (lp.swallowUntil && Date.now() < lp.swallowUntil) { lp.swallowUntil = 0; e.preventDefault(); e.stopPropagation(); }
   }, { capture: true });
+  const pwaBtn = doc?.getElementById ? doc.getElementById('rotate-hint-pwa') : null;
+  if (pwaBtn) {
+    updateRotateHintPwaI18n(doc);
+    on(pwaBtn, 'click', () => { handlePwaInstallRequest(); });
+  }
 
   const pwaBtn = doc?.getElementById?.('rotate-hint-pwa');
   if (pwaBtn) {
